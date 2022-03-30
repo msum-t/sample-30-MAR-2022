@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/getDatesByservice")
@@ -24,8 +25,11 @@ public class DateController {
 
     public ResponseEntity<DateByDTO> getDatesBy(@RequestBody DateByDTO dateByDTO) throws ExecutionException, InterruptedException {
 
-        CompletableFuture<List<Availability>> availability = dateByService.getAvailability(dateByDTO.getStoreNo(),dateByDTO.getProductId());
-        CompletableFuture<List<Capacity>> capacity = dateByService.getCapacity(dateByDTO.getStoreNo(),dateByDTO.getProductId());
+        CompletableFuture<Availability> availability = dateByService.getAvailability(dateByDTO.getStoreNo(),dateByDTO.getProductId());
+        CompletableFuture<Capacity> capacity = dateByService.getCapacity(dateByDTO.getStoreNo(),dateByDTO.getProductId());
+
+//        if (availability.get().getDate().isBefore())
+//            ResponseEntity.ok()
 
 
         return  null;
